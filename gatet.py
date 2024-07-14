@@ -322,7 +322,7 @@ def Tele(ccx):
             'wc_braintree_paypal_amount': 'shortcode',
             'wc_braintree_paypal_currency': 'GBP',
             'wc_braintree_paypal_locale': 'en_gb',
-            'wc-braintree-paypal-tokenize-payment-method': 'true'
+            'wc-braintree-paypal-tokenize-payment-method': 'true',
 		    'woocommerce-add-payment-method-nonce': add_nonce,
 		    '_wp_http_referer': '%2Fmy-account%2Fadd-payment-method%2F',
 		    'woocommerce_add_payment_method': '1',
