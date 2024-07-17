@@ -5,7 +5,7 @@ import telebot,time,random
 import random
 import string
 from telebot import types
-from gatet import
+from gatet import *
 from reg import reg
 from datetime import datetime, timedelta
 from faker import Faker
