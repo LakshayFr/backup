@@ -158,7 +158,7 @@ def Tele(ccx):
     'username': username,
     'email': acc,
     'password': password,
-    'wc_order_attribution_source_type': ,
+    'wc_order_attribution_source_type': '(none)',
     'wc_order_attribution_referrer': '(none)',
     'wc_order_attribution_utm_campaign': '(none)',
     'wc_order_attribution_utm_source': '(direct)',
