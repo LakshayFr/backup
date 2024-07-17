@@ -29,6 +29,7 @@ def Tele(ccx):
 	cvc = ccx.split("|")[3]
 	if "20" in yy:#Mo3gza
 		yy = yy.split("20")[1]	
+	return n, mm, yy, cvc
 user = user_agent.generate_user_agent()		
 r = requests.session()	
 r.follow_redirects = True	
